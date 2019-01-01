@@ -127,7 +127,7 @@ def insert_sort(data):
 
 def quick_sort(data):
     """
-    Insertion sort algorithm
+    Quick sort algorithm
     >>> quick_sort([])
     []
     >>> quick_sort([1])
@@ -183,7 +183,7 @@ def _quick_sort2_helper(data, left, right):
 
 def quick_sort2(data):
     """
-    Insertion sort algorithm
+    Quick sort algorithm
     >>> quick_sort2([])
     []
     >>> quick_sort2([1])
@@ -199,6 +199,99 @@ def quick_sort2(data):
     """
     return _quick_sort2_helper(data, 0, len(data)-1)
 
+
+def merge_sort(data):
+    """
+    Merge sort algorithm
+    >>> merge_sort([])
+    []
+    >>> merge_sort([1])
+    [1]
+    >>> merge_sort([4, 6, 2, 7, 9, 8])
+    [2, 4, 6, 7, 8, 9]
+    >>> merge_sort([35, 10, 42, 3, 79, 12, 62, 18, 51, 23])
+    [3, 10, 12, 18, 23, 35, 42, 51, 62, 79]
+    >>> merge_sort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> merge_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    """
+    if len(data) <= 1:
+        return data
+
+    mid = len(data) // 2
+    left_list = merge_sort(data[:mid])
+    right_list = merge_sort(data[mid:])
+
+    i = 0
+    j = 0
+    k = 0
+    while i < len(left_list) and j < len(right_list):
+        if left_list[i] <= right_list[j]:
+            data[k] = left_list[i]
+            i += 1
+        else:
+            data[k] = right_list[j]
+            j += 1
+        k += 1
+
+    while i < len(left_list):
+        data[k] = left_list[i]
+        i += 1
+        k += 1
+
+    while j < len(right_list):
+        data[k] = right_list[j]
+        j += 1
+        k += 1
+
+    return data
+
+
+def _heapify(data, n, i):
+    parent = i
+    left = i * 2 + 1
+    right = i * 2 + 2
+    if left < n and data[left] > data[parent]:
+        parent = left
+    if right < n and data[right] > data[parent]:
+        parent = right
+    if parent != i:
+        data[parent], data[i] = data[i], data[parent]
+        _heapify(data, n, parent)
+
+
+def heap_sort(data):
+    """
+    Merge sort algorithm
+    >>> heap_sort([])
+    []
+    >>> heap_sort([1])
+    [1]
+    >>> heap_sort([4, 6, 2, 7, 9, 8])
+    [2, 4, 6, 7, 8, 9]
+    >>> heap_sort([35, 10, 42, 3, 79, 12, 62, 18, 51, 23])
+    [3, 10, 12, 18, 23, 35, 42, 51, 62, 79]
+    >>> heap_sort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> heap_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    """
+    if len(data) <= 1:
+        return data
+
+    for i in range(len(data)//2 - 1, -1, -1):
+        _heapify(data, len(data), i)
+
+    for i in range(len(data) - 1, -1, -1):
+        data[0], data[i] = data[i], data[0]
+        _heapify(data, i, 0)
+
+    return data
+
+
+#l = [1, 12, 9, 5, 6, 10]
+#heap_sort(l)
 
 if __name__ == '__main__':
     import doctest
