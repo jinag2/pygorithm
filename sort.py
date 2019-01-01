@@ -290,8 +290,43 @@ def heap_sort(data):
     return data
 
 
-#l = [1, 12, 9, 5, 6, 10]
-#heap_sort(l)
+def radix_sort(data):
+    """
+    Merge sort algorithm
+    >>> radix_sort([])
+    []
+    >>> radix_sort([1])
+    [1]
+    >>> radix_sort([4, 6, 2, 7, 9, 8])
+    [2, 4, 6, 7, 8, 9]
+    >>> radix_sort([59, 95, 7, 34, 60, 168, 171, 259, 372, 45, 88, 133])
+    [7, 34, 45, 59, 60, 88, 95, 133, 168, 171, 259, 372]
+    >>> radix_sort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> radix_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    """
+    if len(data) <= 1:
+        return data
+
+    max_num = max(data)
+
+    exp = 1
+    while max_num // exp:
+        buckets = []
+        for i in range(10):
+            buckets.append([])
+
+        for i in range(len(data)):
+            buckets[(data[i] // exp) % 10].append(data[i])
+        exp *= 10
+
+        data = []
+        for each in buckets:
+            data += each
+
+    return data
+
 
 if __name__ == '__main__':
     import doctest
