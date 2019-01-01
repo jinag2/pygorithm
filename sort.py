@@ -12,6 +12,9 @@ def bubble_sort(data):
     >>> bubble_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
+    if len(data) <= 1:
+        return data
+
     for i in range(len(data) - 1):
         for j in range(len(data) - 1 - i):
             if data[j] > data[j+1]:
@@ -33,6 +36,9 @@ def bubble_sort_pro(data):
     >>> bubble_sort_pro([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
+    if len(data) <= 1:
+        return data
+
     for i in range(len(data) - 1):
         exchange = False
         for j in range(len(data) - 1 - i):
@@ -59,6 +65,9 @@ def select_sort(data):
     >>> select_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
+    if len(data) <= 1:
+        return data
+
     for i in range(len(data) - 1):
         max_idx = 0
         j = max_idx
@@ -83,6 +92,9 @@ def select_sort2(data):
     >>> select_sort2([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
+    if len(data) <= 1:
+        return data
+
     for i in range(len(data) - 1):
         max_idx = len(data) - 1 - i
         last_idx = max_idx
@@ -110,6 +122,9 @@ def insert_sort(data):
     >>> insert_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
+    if len(data) <= 1:
+        return data
+
     for i in range(1, len(data)):
         k = i
         for j in range(i):
@@ -122,6 +137,34 @@ def insert_sort(data):
             while k < i:
                 temp, data[k + 1] = data[k + 1], temp
                 k += 1
+    return data
+
+
+def insert_sort2(data):
+    """
+    A better implementation of insertion sort algorithm
+    >>> insert_sort2([])
+    []
+    >>> insert_sort2([1])
+    [1]
+    >>> insert_sort2([4, 6, 2, 7, 9, 8])
+    [2, 4, 6, 7, 8, 9]
+    >>> insert_sort2([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> insert_sort2([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    """
+    if len(data) <= 1:
+        return data
+
+    for i in range(1, len(data)):
+        last = data[i]
+        j = i
+        while j >= 1 and data[j - 1] > last:
+            data[j] = data[j - 1]
+            j -= 1
+        data[j] = last
+
     return data
 
 
@@ -324,6 +367,39 @@ def radix_sort(data):
         data = []
         for each in buckets:
             data += each
+
+    return data
+
+
+def shell_sort(data):
+    """
+    Shell sort algorithm
+    >>> shell_sort([])
+    []
+    >>> shell_sort([1])
+    [1]
+    >>> shell_sort([4, 6, 2, 7, 9, 8])
+    [2, 4, 6, 7, 8, 9]
+    >>> shell_sort([10, 14, 73, 25, 23, 13, 27, 94, 33, 39, 25, 59, 94, 65, 82, 45])
+    [10, 13, 14, 23, 25, 25, 27, 33, 39, 45, 59, 65, 73, 82, 94, 94]
+    >>> shell_sort([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> shell_sort([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    """
+    if len(data) <= 1:
+        return data
+
+    gap = len(data) // 2
+    while gap > 0:
+        for i in range(gap, len(data)):
+            last = data[i]
+            j = i
+            while j >= gap and data[j - gap] > last:
+                data[j] = data[j - gap]
+                j -= gap
+            data[j] = last
+        gap = gap // 2
 
     return data
 
