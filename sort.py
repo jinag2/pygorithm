@@ -356,9 +356,7 @@ def radix_sort(data):
 
     exp = 1
     while max_num // exp:
-        buckets = []
-        for i in range(10):
-            buckets.append([])
+        buckets = [[] for _ in range(10)]
 
         for i in range(len(data)):
             buckets[(data[i] // exp) % 10].append(data[i])
